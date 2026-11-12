@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d0f14">
+
+    <title>CPS Tester | CPSDolphin</title>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/cps.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="f-header">
+        <div class="f-container f-header__inner">
+
+            <a href="/" class="f-brand">
+                <span class="f-brand__logo"><i data-icon="shrimp"></i></span>
+                <span class="f-brand__name">CPSDolphin</span>
+            </a>
+
+            <nav class="f-nav">
+                <a href="index.html" class="f-nav__link f-nav__link--active">
+                    <i data-icon="mouse"></i> CPS Tester
+                </a>
+
+                <a href="wpm.html" class="f-nav__link">
+                    <i data-icon="keyboard"></i> WPM Tester
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main class="f-container cps-main">
+
+        <section class="f-section f-stack f-stack--lg">
+
+            <!-- Introduction -->
+            <div class="f-stack f-stack--sm u-text-center">
+
+                <h1 class="f-heading f-heading--1">
+                    CPS Tester
+                </h1>
+
+                <p class="f-text">
+                    Find out how fast you can click.
+                    You have 5 seconds.
+                </p>
+
+            </div>
+
+
+            <!-- Statistics -->
+            <div class="f-grid f-grid--2">
+
+                <div class="f-card f-stat">
+                    <span class="f-stat__label">
+                        Time remaining
+                    </span>
+
+                    <span class="cps-timer f-mono" id="timer">
+                        5.00s
+                    </span>
+                </div>
+
+                <div class="f-card f-stat">
+                    <span class="f-stat__label">
+                        Total clicks
+                    </span>
+
+                    <span class="f-stat__value f-mono" id="clicks">
+                        0
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- Click Area -->
+            <div
+                class="cps-arena"
+                id="arena"
+                role="button"
+                tabindex="0"
+                aria-label="Click here to start and perform the CPS test"
+            >
+
+                <span class="cps-counter f-mono" id="arenaCounter">
+                    0
+                </span>
+
+                <span class="f-text u-mt-4" id="arenaText">
+                    Click here to start
+                </span>
+
+            </div>
+
+
+            <!-- Result -->
+            <div class="f-card cps-result f-stack u-text-center" id="result">
+
+                <span class="f-badge f-badge--success">
+                    TEST COMPLETED
+                </span>
+
+                <div class="f-stack f-stack--sm">
+
+                    <span class="f-text">
+                        Your clicking speed
+                    </span>
+
+                    <div class="cps-result-value f-mono" id="resultCps">
+                        0.00
+                    </div>
+
+                    <span class="f-text--muted">
+                        Clicks per second (CPS)
+                    </span>
+
+                </div>
+
+                <div class="f-divider"></div>
+
+                <div class="f-grid f-grid--2">
+
+                    <div class="f-stat">
+                        <span class="f-stat__label">
+                            Total clicks
+                        </span>
+
+                        <span class="f-heading f-heading--2" id="resultClicks">
+                            0
+                        </span>
+                    </div>
+
+                    <div class="f-stat">
+                        <span class="f-stat__label">
+                            Test duration
+                        </span>
+
+                        <span class="f-heading f-heading--2">
+                            5s
+                        </span>
+                    </div>
+
+                </div>
+
+                <button
+                    class="f-button f-button--primary f-button--block"
+                    id="restart"
+                    type="button"
+                >
+                    Try again
+                </button>
+
+            </div>
+
+
+            <!-- Instructions -->
+            <div class="f-panel f-stack f-stack--sm">
+
+                <h2 class="f-heading f-heading--4">
+                    How it works
+                </h2>
+
+                <p class="f-text f-text--small">
+                    1. Click the test area to start.
+                </p>
+
+                <p class="f-text f-text--small">
+                    2. Click as many times as possible within 5 seconds.
+                </p>
+
+                <p class="f-text f-text--small">
+                    3. Your average clicks per second will be calculated automatically.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/cps.js"></script>
+    <script src="js/icons.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+@import "style.css";
+/* =========================================
+   WPM TESTER
+   ========================================= */
+
+/*
+ * Main layout
+ * The f-container and f-section classes
+ * handle the general page layout.
+ */
+
+.wpm-main {
+    max-width: 1000px;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+
+/* =========================================
+   SETTINGS
+   ========================================= */
+
+.wpm-settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.wpm-setting {
+    min-width: 65px;
+}
+
+.wpm-setting.active {
+    color: var(--color-primary);
+    background: var(--color-surface);
+}
+
+
+/* =========================================
+   TYPING ARENA
+   ========================================= */
+
+.wpm-arena {
+    position: relative;
+    min-height: 240px;
+    padding: 2rem;
+    cursor: text;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.wpm-arena:focus {
+    outline: none;
+}
+
+.wpm-arena:focus-visible {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-transparent);
+}
+
+
+/* =========================================
+   TYPING TEXT
+   ========================================= */
+
+.wpm-text {
+    font-family: var(--f-font-mono);
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    line-height: 2.2;
+    color: var(--f-color-text-muted);
+
+    overflow: hidden;
+    user-select: none;
+    overflow-wrap: anywhere;
+}
+
+.wpm-word {
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: .55em;
+}
+
+.wpm-char {
+    position: relative;
+    color: var(--f-color-text-muted);
+    transition: color .1s ease;
+}
+
+/* Correct character */
+
+.wpm-char.correct {
+    color: var(--f-color-success);
+}
+
+/* Incorrect character */
+
+.wpm-char.incorrect {
+    color: var(--f-color-danger);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+
+/* Current character */
+
+.wpm-char.current {
+    border-left: 2px solid var(--f-color-primary);
+    margin-left: -2px;
+    animation: wpm-caret 1s steps(2, start) infinite;
+}
+
+@keyframes wpm-caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
+/* =========================================
+   HINT
+   ========================================= */
+
+.wpm-arena #hint {
+    margin-top: 2rem;
+    opacity: .65;
+}
+
+
+/* =========================================
+   RESULTS
+   ========================================= */
+
+.wpm-result {
+    display: none;
+    text-align: center;
+}
+
+.wpm-result.is-visible {
+    display: flex;
+}
+
+.wpm-result-value {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--f-color-primary);
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+    .wpm-main {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .wpm-arena {
+        min-height: 280px;
+        padding: 1.5rem;
+    }
+
+    .wpm-text {
+        font-size: 1.1rem;
+        line-height: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .wpm-arena {
+        padding: 1rem;
+    }
+
+    .wpm-settings {
+        gap: .25rem;
+    }
+
+    .wpm-setting {
+        min-width: 55px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wpm-char.current {
+        animation: none;
+    }
+
+    .wpm-arena,
+    .wpm-char {
+        transition: none;
+    }
+}

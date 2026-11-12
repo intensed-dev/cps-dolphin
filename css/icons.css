@@ -1,0 +1,15 @@
+
+[data-icon] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 1em; */
+    /* height: 1em; */
+    vertical-align: middle;
+}
+
+[data-icon] svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}

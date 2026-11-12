@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d0f14">
+
+    <title>WPM Tester | CPSDolphin</title>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/wpm.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="f-header">
+        <div class="f-container f-header__inner">
+
+            <a href="/" class="f-brand">
+                <span class="f-brand__logo"><i data-icon="shrimp"></i></span>
+                <span class="f-brand__name">CPSDolphin</span>
+            </a>
+
+            <nav class="f-nav">
+                <a href="index.html" class="f-nav__link">
+                    <i data-icon="mouse"></i> CPS Tester
+                </a>
+
+                <a href="wpm.html" class="f-nav__link f-nav__link--active">
+                    <i data-icon="keyboard"></i> WPM Tester
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main class="f-container wpm-main">
+
+        <section class="f-section f-stack f-stack--lg">
+
+            <!-- Introduction -->
+            <div class="f-stack f-stack--sm u-text-center">
+
+                <h1 class="f-heading f-heading--1">
+                    WPM Tester
+                </h1>
+
+                <p class="f-text">
+                    Find out how fast you can type.
+                    Test your words per minute.
+                </p>
+
+            </div>
+
+
+            <!-- Settings -->
+            <div class="wpm-settings">
+
+                <button class="f-button f-button--ghost wpm-setting" data-duration="5">
+                    5s
+                </button>
+
+                <button class="f-button f-button--ghost wpm-setting" data-duration="10">
+                    10s
+                </button>
+
+                <button class="f-button f-button--ghost wpm-setting" data-duration="15">
+                    15s
+                </button>
+
+                <button class="f-button f-button--ghost wpm-setting active" data-duration="30">
+                    30s
+                </button>
+
+                <button class="f-button f-button--ghost wpm-setting" data-duration="60">
+                    1min
+                </button>
+
+                <button class="f-button f-button--ghost wpm-setting" data-duration="120">
+                    2min
+                </button>
+
+            </div>
+
+
+            <!-- Statistics -->
+            <div class="f-grid f-grid--3">
+
+                <div class="f-card f-stat">
+                    <span class="f-stat__label">
+                        Words per minute
+                    </span>
+
+                    <span class="f-stat__value f-mono" id="wpm">
+                        0
+                    </span>
+                </div>
+
+                <div class="f-card f-stat">
+                    <span class="f-stat__label">
+                        Accuracy
+                    </span>
+
+                    <span class="f-stat__value f-mono" id="accuracy">
+                        100%
+                    </span>
+                </div>
+
+                <div class="f-card f-stat">
+                    <span class="f-stat__label">
+                        Time remaining
+                    </span>
+
+                    <span class="f-stat__value f-mono" id="timer">
+                        30s
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- Typing Area -->
+            <div
+                class="f-card wpm-arena"
+                id="test"
+                tabindex="0"
+                role="textbox"
+                aria-label="Typing test"
+            >
+
+                <div class="wpm-text" id="text"></div>
+
+                <p class="f-text f-text--small u-text-center" id="hint">
+                    Click here and start typing.
+                </p>
+
+            </div>
+
+
+            <!-- Result -->
+            <div class="f-card wpm-result f-stack u-text-center" id="result">
+
+                <span class="f-badge f-badge--success">
+                    TEST COMPLETED
+                </span>
+
+                <div class="f-stack f-stack--sm">
+
+                    <span class="f-text">
+                        Your typing speed
+                    </span>
+
+                    <div class="wpm-result-value f-mono" id="final-wpm">
+                        0
+                    </div>
+
+                    <span class="f-text--muted">
+                        Words per minute (WPM)
+                    </span>
+
+                </div>
+
+                <div class="f-divider"></div>
+
+                <div class="f-grid f-grid--2">
+
+                    <div class="f-stat">
+                        <span class="f-stat__label">
+                            Accuracy
+                        </span>
+
+                        <span class="f-heading f-heading--2" id="final-accuracy">
+                            100%
+                        </span>
+                    </div>
+
+                    <div class="f-stat">
+                        <span class="f-stat__label">
+                            Test duration
+                        </span>
+
+                        <span class="f-heading f-heading--2" id="final-duration">
+                            30s
+                        </span>
+                    </div>
+
+                </div>
+
+                <button
+                    class="f-button f-button--primary f-button--block"
+                    id="restart"
+                    type="button"
+                >
+                    Try again
+                </button>
+
+            </div>
+
+
+            <!-- Instructions -->
+            <div class="f-panel f-stack f-stack--sm">
+
+                <h2 class="f-heading f-heading--4">
+                    How it works
+                </h2>
+
+                <p class="f-text f-text--small">
+                    1. Click on the text area and start typing.
+                </p>
+
+                <p class="f-text f-text--small">
+                    2. Type the displayed words as accurately as possible.
+                </p>
+
+                <p class="f-text f-text--small">
+                    3. Correct and incorrect characters are highlighted.
+                </p>
+
+                <p class="f-text f-text--small">
+                    4. Your WPM and accuracy are calculated automatically.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/wpm.js"></script>
+    <script src="js/icons.js" defer></script>
+
+</body>
+</html>

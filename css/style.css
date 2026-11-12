@@ -1,0 +1,1201 @@
+
+/*
+ * FOUNDATION CSS
+ * Version: 1.0.0
+ * Purpose: Shared design foundation for CPS and WPM testers.
+ *
+ * This file contains generic design primitives and components.
+ * It intentionally contains no tester-specific functionality.
+ *
+ * Naming convention:
+ *   .f-<component>       Component
+ *   .f-<component>--<variant> Modifier
+ *   .f-<element>         Component element
+ *   .u-<utility>         Utility class
+ *   :state               Interaction state
+ *
+ * Example:
+ *   .f-button
+ *   .f-button--primary
+ *   .f-card
+ *   .u-flex
+ */
+
+
+/* ============================================================
+   01. DESIGN TOKENS
+   Global variables used throughout the entire foundation.
+   Change these values to customize the complete design.
+   ============================================================ */
+
+:root {
+    /* Colors: Background */
+    --f-color-bg: #0d0f14;
+    --f-color-bg-secondary: #131720;
+    --f-color-bg-tertiary: #191f2a;
+    --f-color-surface: #171c26;
+    --f-color-surface-hover: #1e2532;
+
+    /* Colors: Text */
+    --f-color-text: #f1f3f7;
+    --f-color-text-secondary: #a1a9b8;
+    --f-color-text-muted: #697386;
+    --f-color-text-inverted: #0d0f14;
+
+    /* Colors: Accent */
+    --f-color-primary: #7297f8;
+    --f-color-primary-hover: #8baaff;
+    --f-color-primary-subtle: rgba(114, 151, 248, .12);
+
+    /* Colors: Semantic */
+    --f-color-success: #4dc99a;
+    --f-color-warning: #e9b65c;
+    --f-color-danger: #ed6b76;
+    --f-color-info: #66b9e8;
+
+    /* Colors: Borders */
+    --f-color-border: #282f3d;
+    --f-color-border-hover: #3a4558;
+    --f-color-border-focus: var(--f-color-primary);
+
+    /* Typography */
+    --f-font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    --f-font-mono: "SFMono-Regular", Consolas, monospace;
+
+    --f-font-size-xs: .75rem;
+    --f-font-size-sm: .875rem;
+    --f-font-size-md: 1rem;
+    --f-font-size-lg: 1.125rem;
+    --f-font-size-xl: 1.375rem;
+    --f-font-size-2xl: 1.75rem;
+    --f-font-size-3xl: 2.25rem;
+
+    --f-font-weight-normal: 400;
+    --f-font-weight-medium: 500;
+    --f-font-weight-semibold: 600;
+    --f-font-weight-bold: 700;
+
+    --f-line-height-tight: 1.2;
+    --f-line-height-normal: 1.5;
+    --f-line-height-relaxed: 1.75;
+
+    /* Spacing */
+    --f-space-1: .25rem;
+    --f-space-2: .5rem;
+    --f-space-3: .75rem;
+    --f-space-4: 1rem;
+    --f-space-5: 1.25rem;
+    --f-space-6: 1.5rem;
+    --f-space-8: 2rem;
+    --f-space-10: 2.5rem;
+    --f-space-12: 3rem;
+    --f-space-16: 4rem;
+
+    /* Border radius */
+    --f-radius-sm: 5px;
+    --f-radius-md: 9px;
+    --f-radius-lg: 14px;
+    --f-radius-xl: 20px;
+    --f-radius-full: 999px;
+
+    /* Shadows */
+    --f-shadow-sm: 0 2px 8px rgba(0, 0, 0, .15);
+    --f-shadow-md: 0 8px 24px rgba(0, 0, 0, .2);
+    --f-shadow-lg: 0 16px 48px rgba(0, 0, 0, .3);
+
+    /* Layout */
+    --f-container-width: 1120px;
+    --f-container-wide: 1360px;
+
+    /* Transitions */
+    --f-transition-fast: 120ms ease;
+    --f-transition-normal: 200ms ease;
+    --f-transition-slow: 350ms ease;
+}
+
+
+/* ============================================================
+   02. RESET
+   Normalizes browser defaults to create predictable styling.
+   ============================================================ */
+
+/*
+ * Applies border-box sizing to all elements.
+ * Padding and borders are included in the declared dimensions.
+ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*
+ * Removes default document spacing.
+ */
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+/*
+ * Enables smooth scrolling for anchor navigation.
+ */
+html {
+    scroll-behavior: smooth;
+}
+
+/*
+ * Establishes the default typography and page colors.
+ */
+body {
+    background: var(--f-color-bg);
+    color: var(--f-color-text);
+    font-family: var(--f-font-family);
+    font-size: var(--f-font-size-md);
+    font-weight: var(--f-font-weight-normal);
+    line-height: var(--f-line-height-normal);
+    -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Makes images responsive by default.
+ */
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+/*
+ * Removes default heading margins.
+ * Individual heading classes define their own spacing.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+/*
+ * Inherits typography for form controls.
+ */
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+/*
+ * Links inherit the surrounding text color.
+ */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/*
+ * Buttons do not receive browser-default styling.
+ */
+button {
+    color: inherit;
+}
+
+
+/* ============================================================
+   03. LAYOUT
+   Generic layout primitives for page structure.
+   ============================================================ */
+
+/*
+ * .f-container
+ * Centers content horizontally and limits its width.
+ *
+ * Usage:
+ * <div class="f-container">...</div>
+ */
+.f-container {
+    width: min(100% - 2rem, var(--f-container-width));
+    margin-inline: auto;
+}
+
+/*
+ * .f-container--wide
+ * Uses a wider maximum width for dashboards and larger layouts.
+ */
+.f-container--wide {
+    max-width: var(--f-container-wide);
+}
+
+/*
+ * .f-container--full
+ * Removes the maximum width restriction.
+ */
+.f-container--full {
+    width: 100%;
+}
+
+/*
+ * .f-section
+ * Creates a vertical page section with consistent spacing.
+ */
+.f-section {
+    padding-block: var(--f-space-12);
+}
+
+/*
+ * .f-section--compact
+ * Reduced vertical spacing for smaller sections.
+ */
+.f-section--compact {
+    padding-block: var(--f-space-6);
+}
+
+/*
+ * .f-stack
+ * Places children vertically with a consistent gap.
+ *
+ * Usage:
+ * <div class="f-stack">...</div>
+ */
+.f-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--f-space-4);
+}
+
+/*
+ * .f-stack--sm
+ * Smaller vertical spacing.
+ */
+.f-stack--sm {
+    gap: var(--f-space-2);
+}
+
+/*
+ * .f-stack--lg
+ * Larger vertical spacing.
+ */
+.f-stack--lg {
+    gap: var(--f-space-8);
+}
+
+/*
+ * .f-cluster
+ * Places children horizontally and allows wrapping.
+ * Useful for button groups, tags and inline controls.
+ */
+.f-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--f-space-3);
+}
+
+/*
+ * .f-grid
+ * Creates a responsive CSS grid.
+ */
+.f-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 240px), 1fr)
+    );
+    gap: var(--f-space-4);
+}
+
+/*
+ * .f-grid--2
+ * Two equal columns when enough space is available.
+ */
+.f-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/*
+ * .f-grid--3
+ * Three equal columns when enough space is available.
+ */
+.f-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/*
+ * .f-grid--4
+ * Four equal columns when enough space is available.
+ */
+.f-grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/*
+ * .f-divider
+ * A subtle horizontal separator.
+ */
+.f-divider {
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background: var(--f-color-border);
+}
+
+
+/* ============================================================
+   04. FLEX UTILITIES
+   Small helpers for common alignment patterns.
+   ============================================================ */
+
+.u-flex {
+    display: flex;
+}
+
+.u-inline-flex {
+    display: inline-flex;
+}
+
+.u-flex-column {
+    flex-direction: column;
+}
+
+.u-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.u-flex-1 {
+    flex: 1;
+}
+
+.u-flex-none {
+    flex: none;
+}
+
+.u-items-center {
+    align-items: center;
+}
+
+.u-items-start {
+    align-items: flex-start;
+}
+
+.u-items-end {
+    align-items: flex-end;
+}
+
+.u-justify-center {
+    justify-content: center;
+}
+
+.u-justify-between {
+    justify-content: space-between;
+}
+
+.u-justify-end {
+    justify-content: flex-end;
+}
+
+.u-gap-1 { gap: var(--f-space-1); }
+.u-gap-2 { gap: var(--f-space-2); }
+.u-gap-3 { gap: var(--f-space-3); }
+.u-gap-4 { gap: var(--f-space-4); }
+.u-gap-6 { gap: var(--f-space-6); }
+.u-gap-8 { gap: var(--f-space-8); }
+
+
+/* ============================================================
+   05. TYPOGRAPHY
+   Semantic text styles and reusable typography classes.
+   ============================================================ */
+
+/*
+ * .f-heading
+ * Base heading style. Use with a heading element.
+ */
+.f-heading {
+    color: var(--f-color-text);
+    font-weight: var(--f-font-weight-bold);
+    line-height: var(--f-line-height-tight);
+    letter-spacing: -.035em;
+}
+
+.f-heading--1 { font-size: var(--f-font-size-3xl); }
+.f-heading--2 { font-size: var(--f-font-size-2xl); }
+.f-heading--3 { font-size: var(--f-font-size-xl); }
+.f-heading--4 { font-size: var(--f-font-size-lg); }
+
+/*
+ * .f-text
+ * Standard paragraph styling.
+ */
+.f-text {
+    color: var(--f-color-text-secondary);
+    font-size: var(--f-font-size-md);
+    line-height: var(--f-line-height-relaxed);
+}
+
+/*
+ * .f-text--small
+ * Smaller supporting text.
+ */
+.f-text--small {
+    font-size: var(--f-font-size-sm);
+}
+
+/*
+ * .f-text--muted
+ * Low-emphasis text for metadata and descriptions.
+ */
+.f-text--muted {
+    color: var(--f-color-text-muted);
+}
+
+/*
+ * .f-text--primary
+ * Uses the primary accent color.
+ */
+.f-text--primary {
+    color: var(--f-color-primary);
+}
+
+/*
+ * .f-text--strong
+ * Emphasized text.
+ */
+.f-text--strong {
+    color: var(--f-color-text);
+    font-weight: var(--f-font-weight-semibold);
+}
+
+/*
+ * .f-label
+ * Small label for inputs and informational elements.
+ */
+.f-label {
+    display: block;
+    color: var(--f-color-text-secondary);
+    font-size: var(--f-font-size-sm);
+    font-weight: var(--f-font-weight-medium);
+    margin-bottom: var(--f-space-2);
+}
+
+/*
+ * .f-mono
+ * Monospaced typography for scores, timers and technical values.
+ */
+.f-mono {
+    font-family: var(--f-font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ============================================================
+   06. HEADER
+   Shared website header and navigation.
+   ============================================================ */
+
+/*
+ * .f-header
+ * Main page header.
+ * Contains branding and optional navigation.
+ */
+.f-header {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    background: var(--f-color-bg-secondary);
+    border-bottom: 1px solid var(--f-color-border);
+}
+
+/*
+ * .f-header__inner
+ * Inner header layout.
+ * Keeps branding and navigation aligned.
+ */
+.f-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 68px;
+    gap: var(--f-space-6);
+}
+
+/*
+ * .f-brand
+ * Branding wrapper for logo and name.
+ */
+.f-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--f-space-3);
+    color: var(--f-color-text);
+    font-weight: var(--f-font-weight-bold);
+    white-space: nowrap;
+}
+
+/*
+ * .f-brand__logo
+ * Logo or icon inside the brand.
+ */
+.f-brand__logo {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--f-radius-md);
+    background: var(--f-color-primary-subtle);
+    color: var(--f-color-primary);
+}
+
+/*
+ * .f-brand__name
+ * Brand text.
+ */
+.f-brand__name {
+    font-size: var(--f-font-size-lg);
+    letter-spacing: -.02em;
+}
+
+/*
+ * .f-nav
+ * Navigation container.
+ */
+.f-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--f-space-2);
+}
+
+/*
+ * .f-nav__link
+ * Individual navigation link.
+ */
+.f-nav__link {
+    padding: var(--f-space-2) var(--f-space-3);
+    color: var(--f-color-text-secondary);
+    font-size: var(--f-font-size-sm);
+    border-radius: var(--f-radius-md);
+    transition:
+        color var(--f-transition-fast),
+        background var(--f-transition-fast);
+}
+
+.f-nav__link:hover {
+    color: var(--f-color-text);
+    background: var(--f-color-surface);
+}
+
+/*
+ * .f-nav__link--active
+ * Marks the current navigation destination.
+ */
+.f-nav__link--active {
+    color: var(--f-color-text);
+    background: var(--f-color-primary-subtle);
+}
+
+
+/* ============================================================
+   07. BUTTONS
+   Reusable button styles with visual variants.
+   ============================================================ */
+
+/*
+ * .f-button
+ * Base button.
+ * Provides consistent sizing, alignment and interaction states.
+ */
+.f-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--f-space-2);
+    min-height: 40px;
+    padding: 0 var(--f-space-4);
+
+    border: 1px solid transparent;
+    border-radius: var(--f-radius-md);
+
+    background: var(--f-color-surface);
+    color: var(--f-color-text);
+
+    font-size: var(--f-font-size-sm);
+    font-weight: var(--f-font-weight-semibold);
+
+    cursor: pointer;
+    transition:
+        background var(--f-transition-fast),
+        border-color var(--f-transition-fast),
+        color var(--f-transition-fast),
+        transform var(--f-transition-fast);
+}
+
+/*
+ * .f-button--primary
+ * Main action button.
+ */
+.f-button--primary {
+    background: var(--f-color-primary);
+    color: var(--f-color-text-inverted);
+}
+
+.f-button--primary:hover {
+    background: var(--f-color-primary-hover);
+}
+
+/*
+ * .f-button--secondary
+ * Secondary action button.
+ */
+.f-button--secondary {
+    background: var(--f-color-surface);
+    border-color: var(--f-color-border);
+}
+
+.f-button--secondary:hover {
+    background: var(--f-color-surface-hover);
+    border-color: var(--f-color-border-hover);
+}
+
+/*
+ * .f-button--outline
+ * Transparent button with a visible border.
+ */
+.f-button--outline {
+    background: transparent;
+    border-color: var(--f-color-border);
+}
+
+.f-button--outline:hover {
+    background: var(--f-color-surface);
+    border-color: var(--f-color-border-hover);
+}
+
+/*
+ * .f-button--ghost
+ * Minimal button without a permanent background.
+ */
+.f-button--ghost {
+    background: transparent;
+    color: var(--f-color-text-secondary);
+}
+
+.f-button--ghost:hover {
+    background: var(--f-color-surface);
+    color: var(--f-color-text);
+}
+
+/*
+ * .f-button--danger
+ * Destructive action button.
+ */
+.f-button--danger {
+    background: var(--f-color-danger);
+    color: var(--f-color-text-inverted);
+}
+
+/*
+ * Button sizes.
+ */
+.f-button--sm {
+    min-height: 32px;
+    padding-inline: var(--f-space-3);
+    font-size: var(--f-font-size-xs);
+}
+
+.f-button--lg {
+    min-height: 48px;
+    padding-inline: var(--f-space-6);
+    font-size: var(--f-font-size-md);
+}
+
+.f-button--block {
+    width: 100%;
+}
+
+/*
+ * Shared disabled state.
+ */
+.f-button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.f-button:not(:disabled):active {
+    transform: translateY(1px);
+}
+
+
+/* ============================================================
+   08. CARDS & PANELS
+   Containers for content, statistics and grouped information.
+   ============================================================ */
+
+/*
+ * .f-card
+ * General-purpose content container.
+ */
+.f-card {
+    background: var(--f-color-surface);
+    border: 1px solid var(--f-color-border);
+    border-radius: var(--f-radius-lg);
+    padding: var(--f-space-6);
+}
+
+/*
+ * .f-card--interactive
+ * Adds hover feedback for clickable cards.
+ */
+.f-card--interactive {
+    transition:
+        border-color var(--f-transition-normal),
+        background var(--f-transition-normal);
+}
+
+.f-card--interactive:hover {
+    background: var(--f-color-surface-hover);
+    border-color: var(--f-color-border-hover);
+}
+
+/*
+ * .f-card--compact
+ * Reduced card padding.
+ */
+.f-card--compact {
+    padding: var(--f-space-4);
+}
+
+/*
+ * .f-card--flat
+ * Removes the card background and border.
+ */
+.f-card--flat {
+    background: transparent;
+    border-color: transparent;
+    padding: 0;
+}
+
+/*
+ * .f-card__header
+ * Header section inside a card.
+ */
+.f-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--f-space-4);
+    margin-bottom: var(--f-space-5);
+}
+
+/*
+ * .f-card__title
+ * Card heading.
+ */
+.f-card__title {
+    color: var(--f-color-text);
+    font-size: var(--f-font-size-lg);
+    font-weight: var(--f-font-weight-semibold);
+}
+
+/*
+ * .f-card__body
+ * Main card content.
+ */
+.f-card__body {
+    min-width: 0;
+}
+
+/*
+ * .f-card__footer
+ * Footer section with optional actions or metadata.
+ */
+.f-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--f-space-3);
+    margin-top: var(--f-space-5);
+    padding-top: var(--f-space-4);
+    border-top: 1px solid var(--f-color-border);
+}
+
+/*
+ * .f-panel
+ * A lighter-weight container for nested content.
+ */
+.f-panel {
+    padding: var(--f-space-4);
+    border-radius: var(--f-radius-md);
+    background: var(--f-color-bg-secondary);
+    border: 1px solid var(--f-color-border);
+}
+
+
+/* ============================================================
+   09. BADGES
+   Small labels for statuses, categories and metadata.
+   ============================================================ */
+
+/*
+ * .f-badge
+ * Compact inline status indicator.
+ */
+.f-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--f-space-1);
+    padding: var(--f-space-1) var(--f-space-2);
+
+    border-radius: var(--f-radius-full);
+    background: var(--f-color-bg-tertiary);
+    color: var(--f-color-text-secondary);
+
+    font-size: var(--f-font-size-xs);
+    font-weight: var(--f-font-weight-medium);
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+/* Semantic badge variants. */
+.f-badge--primary {
+    background: var(--f-color-primary-subtle);
+    color: var(--f-color-primary);
+}
+
+.f-badge--success {
+    background: rgba(77, 201, 154, .12);
+    color: var(--f-color-success);
+}
+
+.f-badge--warning {
+    background: rgba(233, 182, 92, .12);
+    color: var(--f-color-warning);
+}
+
+.f-badge--danger {
+    background: rgba(237, 107, 118, .12);
+    color: var(--f-color-danger);
+}
+
+.f-badge--info {
+    background: rgba(102, 185, 232, .12);
+    color: var(--f-color-info);
+}
+
+
+/* ============================================================
+   10. FORMS & INPUTS
+   Generic form elements for settings and user interaction.
+   ============================================================ */
+
+/*
+ * .f-field
+ * Wrapper for a label, input and optional helper text.
+ */
+.f-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--f-space-2);
+}
+
+/*
+ * .f-input
+ * Standard text input.
+ */
+.f-input {
+    width: 100%;
+    min-height: 42px;
+    padding: 0 var(--f-space-3);
+
+    border: 1px solid var(--f-color-border);
+    border-radius: var(--f-radius-md);
+
+    background: var(--f-color-bg-secondary);
+    color: var(--f-color-text);
+
+    outline: none;
+    transition:
+        border-color var(--f-transition-fast),
+        box-shadow var(--f-transition-fast);
+}
+
+.f-input::placeholder {
+    color: var(--f-color-text-muted);
+}
+
+.f-input:focus {
+    border-color: var(--f-color-border-focus);
+    box-shadow: 0 0 0 3px var(--f-color-primary-subtle);
+}
+
+/*
+ * .f-input--mono
+ * Monospaced input, useful for numeric values and timers.
+ */
+.f-input--mono {
+    font-family: var(--f-font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+/*
+ * .f-input--large
+ * Larger input for prominent interactions.
+ */
+.f-input--large {
+    min-height: 54px;
+    padding-inline: var(--f-space-4);
+    font-size: var(--f-font-size-lg);
+}
+
+/*
+ * .f-input--error
+ * Error state for invalid values.
+ */
+.f-input--error {
+    border-color: var(--f-color-danger);
+}
+
+/*
+ * .f-helper
+ * Supporting text below an input.
+ */
+.f-helper {
+    color: var(--f-color-text-muted);
+    font-size: var(--f-font-size-xs);
+}
+
+
+/* ============================================================
+   11. STATISTICS & VALUES
+   Displaying scores, measurements and large numerical values.
+   ============================================================ */
+
+/*
+ * .f-stat
+ * A generic statistic container.
+ */
+.f-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--f-space-2);
+}
+
+/*
+ * .f-stat__label
+ * Describes the displayed statistic.
+ */
+.f-stat__label {
+    color: var(--f-color-text-muted);
+    font-size: var(--f-font-size-sm);
+}
+
+/*
+ * .f-stat__value
+ * Prominent numerical value.
+ * Suitable for CPS, WPM, scores and percentages.
+ */
+.f-stat__value {
+    color: var(--f-color-text);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: var(--f-font-weight-bold);
+    line-height: 1;
+    letter-spacing: -.04em;
+    font-variant-numeric: tabular-nums;
+}
+
+/*
+ * .f-stat__unit
+ * Unit displayed next to a statistic.
+ */
+.f-stat__unit {
+    color: var(--f-color-text-secondary);
+    font-size: var(--f-font-size-sm);
+    font-weight: var(--f-font-weight-medium);
+}
+
+/*
+ * .f-stat__description
+ * Additional information about the statistic.
+ */
+.f-stat__description {
+    color: var(--f-color-text-muted);
+    font-size: var(--f-font-size-xs);
+}
+
+
+/* ============================================================
+   12. INTERACTION AREAS
+   Generic clickable and focusable surfaces.
+   ============================================================ */
+
+/*
+ * .f-interactive
+ * Adds a pointer cursor and transitions to an element.
+ */
+.f-interactive {
+    cursor: pointer;
+    transition:
+        background var(--f-transition-fast),
+        border-color var(--f-transition-fast),
+        color var(--f-transition-fast);
+}
+
+/*
+ * .f-focusable
+ * Consistent keyboard focus indication.
+ */
+.f-focusable:focus-visible {
+    outline: 2px solid var(--f-color-primary);
+    outline-offset: 3px;
+}
+
+/*
+ * .f-disabled
+ * Visually marks an unavailable element.
+ */
+.f-disabled,
+.f-interactive:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   13. UTILITIES
+   Small helpers for common styling needs.
+   ============================================================ */
+
+/* Display */
+.u-block { display: block; }
+.u-inline { display: inline; }
+.u-inline-block { display: inline-block; }
+.u-hidden { display: none !important; }
+
+/* Width */
+.u-w-full { width: 100%; }
+.u-w-auto { width: auto; }
+.u-max-w-full { max-width: 100%; }
+
+/* Height */
+.u-h-full { height: 100%; }
+.u-min-h-screen { min-height: 100vh; }
+
+/* Text alignment */
+.u-text-left { text-align: left; }
+.u-text-center { text-align: center; }
+.u-text-right { text-align: right; }
+
+/* Text colors */
+.u-text-primary { color: var(--f-color-primary); }
+.u-text-secondary { color: var(--f-color-text-secondary); }
+.u-text-muted { color: var(--f-color-text-muted); }
+.u-text-success { color: var(--f-color-success); }
+.u-text-danger { color: var(--f-color-danger); }
+
+/* Font weights */
+.u-font-normal { font-weight: var(--f-font-weight-normal); }
+.u-font-medium { font-weight: var(--f-font-weight-medium); }
+.u-font-semibold { font-weight: var(--f-font-weight-semibold); }
+.u-font-bold { font-weight: var(--f-font-weight-bold); }
+
+/* Spacing: Margin */
+.u-mt-2 { margin-top: var(--f-space-2); }
+.u-mt-4 { margin-top: var(--f-space-4); }
+.u-mt-6 { margin-top: var(--f-space-6); }
+.u-mt-8 { margin-top: var(--f-space-8); }
+
+.u-mb-2 { margin-bottom: var(--f-space-2); }
+.u-mb-4 { margin-bottom: var(--f-space-4); }
+.u-mb-6 { margin-bottom: var(--f-space-6); }
+
+/* Positioning */
+.u-relative { position: relative; }
+.u-absolute { position: absolute; }
+.u-sticky { position: sticky; }
+.u-fixed { position: fixed; }
+
+/* Overflow */
+.u-overflow-hidden { overflow: hidden; }
+.u-overflow-auto { overflow: auto; }
+
+/* Miscellaneous */
+.u-rounded { border-radius: var(--f-radius-md); }
+.u-rounded-lg { border-radius: var(--f-radius-lg); }
+.u-rounded-full { border-radius: var(--f-radius-full); }
+.u-border { border: 1px solid var(--f-color-border); }
+.u-shadow-sm { box-shadow: var(--f-shadow-sm); }
+.u-shadow-md { box-shadow: var(--f-shadow-md); }
+
+
+/* ============================================================
+   14. RESPONSIVE BEHAVIOR
+   Adjusts shared layouts for smaller screens.
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .f-container {
+        width: min(100% - 1.5rem, var(--f-container-width));
+    }
+
+    .f-section {
+        padding-block: var(--f-space-8);
+    }
+
+    .f-grid--2,
+    .f-grid--3,
+    .f-grid--4 {
+        grid-template-columns: 1fr;
+    }
+
+    .f-header__inner {
+        min-height: 60px;
+        gap: var(--f-space-3);
+    }
+
+    .f-nav {
+        gap: 0;
+    }
+
+    .f-nav__link {
+        padding-inline: var(--f-space-2);
+    }
+
+    .f-card {
+        padding: var(--f-space-4);
+    }
+}
+
+@media (max-width: 480px) {
+    .f-heading--1 {
+        font-size: var(--f-font-size-2xl);
+    }
+
+    .f-nav__link {
+        font-size: var(--f-font-size-xs);
+    }
+}
+
+
+/* ============================================================
+   15. ACCESSIBILITY
+   Respects operating-system motion preferences.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}

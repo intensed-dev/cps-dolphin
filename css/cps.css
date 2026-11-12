@@ -1,0 +1,76 @@
+/* Tester-specific styles */
+
+        .cps-main {
+            max-width: 720px;
+            margin-inline: auto;
+        }
+
+        .cps-arena {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 260px;
+            padding: 2rem;
+            border: 1px solid var(--f-color-border);
+            border-radius: var(--f-radius-xl);
+            background: var(--f-color-bg-secondary);
+            cursor: pointer;
+            user-select: none;
+            transition: background 150ms ease,
+                        border-color 150ms ease,
+                        transform 100ms ease;
+        }
+
+        .cps-arena:hover:not(.is-running) {
+            background: var(--f-color-surface-hover);
+            border-color: var(--f-color-border-hover);
+        }
+
+        .cps-arena:active {
+            transform: scale(.99);
+        }
+
+        .cps-arena.is-running {
+            border-color: var(--f-color-primary);
+            background: var(--f-color-primary-subtle);
+        }
+
+        .cps-arena.is-finished {
+            cursor: default;
+        }
+
+        .cps-counter {
+            font-size: clamp(3rem, 12vw, 5rem);
+            font-weight: var(--f-font-weight-bold);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cps-timer {
+            font-size: 2rem;
+            font-weight: var(--f-font-weight-semibold);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cps-result {
+            display: none;
+        }
+
+        .cps-result.is-visible {
+            display: block;
+        }
+
+        .cps-result-value {
+            font-size: clamp(3rem, 10vw, 4.5rem);
+            font-weight: var(--f-font-weight-bold);
+            line-height: 1;
+            color: var(--f-color-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cps-arena {
+                transition: none;
+            }
+        }
